@@ -62,7 +62,14 @@
                 <div class="container">
                     <table id="event_table" class="table table-hover">
                     {% for event in events %}
+                        {% if event.eventstatusid == "1" %}
+                        <tr class="success">
+                        {% elif event.eventstatusid == "2" %}
+                        <tr class="warning">
+                        {% elif event.eventstatusid == "3" %}
+                        <tr class="danger">
                         <tr>
+                        {% endif %}
                             <th>{{ event.date|date:'Y-m-d' }}</th>
                             <th>{{ event.name }}</th>
                             <th id="eventstatusid">{{ event.eventstatusid }}</th>
