@@ -19,7 +19,7 @@
         <div class="container body-content">
             <div class="row body-row">
                 <div class="container">
-                    <img src="http://www.eventer.kr/_/rsrc/1472190118332/home/logo3.png">
+                    <img src="http://www.eventer.kr/_/rsrc/1472190118332/home/logo3.png" style='max-height: 100%; max-width: 100%; object-fit: contain;'>
                 </div>
             </div>
             <div class="row body-row">
@@ -59,7 +59,7 @@
                     <button id="event2_button" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
                     <button type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
                 </div>
-                <div class="container">
+                <div class="container max-width-800">
                     <table id="event_table" class="table table-hover">
                     {% for event in events %}
                         {% if event.eventstatusid == "1" %}
