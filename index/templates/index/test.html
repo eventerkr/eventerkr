@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
+        <link rel="stylesheet" href="{% static 'css/index.css' %}" type = "text/css"/>
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/index.js' %}"></script>
+        <meta charset="utf-8" name="viewport" content = "width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            html,
+            body {
+              height:100%
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container body-content">
+            <div class="row body-row">
+                <div class="container">
+                    <img src="http://www.eventer.kr/_/rsrc/1472190118332/home/logo3.png">
+                </div>
+            </div>
+            <div class="row body-row">
+                <div class="container">
+                    <h4> <b> About </b> </h4>
+                    Event is flying never to return </br> </br>
+                    통장잔고가 남아있다면 이벤트에 갖다바치는 이벤터들의 소소한 모임입니다.
+                </div>
+            </div>
+            <div class="row body-row">
+                <div class="container">
+                    <h4> <b> Members </b> </h4>
+                    {% for user in users %}
+                        {% if forloop.counter0 != 0 %}
+                        </br>
+                        {% endif %}
+                        <b> {{ user.name }} </b>
+                        (
+                        {% if user.twitter != None %}
+                          <a href="https://twitter.com/{{ user.twitter }}">twitter</a>
+                        {% endif %}
+                        {% if user.eventernote != None %}
+                          <a href="http://www.eventernote.com/users/{{ user.eventernote }}">eventernote</a>
+                        {% endif %}
+                        ) </br>
+                        - {{ user.intro }}
+                        </br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row body-row">
+                <div class="container">
+                    <h4> <b> Footprints </b> </h4>
+                </div>
+                <div class="container body-row">
+                    <button id="event1_button" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
+                    <button type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
+                    <button type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
+                </div>
+                <div class="container">
+                    <table id="event_table" class="table table-hover">
+                    {% for event in events %}
+                        <tr>
+                            <th>{{ event.date|date:'Y-m-d' }}</th>
+                            <th>{{ event.name }}</th>
+                            <th id="eventstatusid">{{ event.eventstatusid }}</th>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.header-logo {
+    min-height: 120px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 1280px;
+}
+
+.body-row {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
