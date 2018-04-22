@@ -68,6 +68,7 @@
                         <tr class="warning">
                         {% elif event.eventstatusid == "3" %}
                         <tr class="danger">
+                        {% else %}
                         <tr>
                         {% endif %}
                             <th>{{ event.date|date:'Y-m-d' }}</th>
