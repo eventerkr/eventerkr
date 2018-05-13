@@ -6,5 +6,5 @@ from index.models import User, Event
 def index(request):
     #return HttpResponse("Hello, world.")
     argudict = {'users': User.objects.all(),
-                'events': Event.objects.all()}
+                'events': Event.objects.all().order_by('date').reverse()}
     return render(request, 'index/test.html', argudict)
