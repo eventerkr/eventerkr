@@ -57,9 +57,9 @@
                 <div class="container body-row">
                     <button id="event1_button" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
                     <button id="event2_button" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
-                    <button type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
+                    <button id="event3_button" type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
                 </div>
-                <div class="container max-width-800">
+                <div class="container max-width-1024">
                     <table id="event_table" class="table table-hover">
                     {% for event in events %}
                         {% if event.eventstatusid == "1" %}
@@ -71,9 +71,9 @@
                         {% else %}
                         <tr>
                         {% endif %}
-                            <th>{{ event.date|date:'Y-m-d' }}</th>
+                            <th class="event-date-cell">{{ event.date|date:'Y-m-d' }}</th>
                             <th>{{ event.name }}</th>
-                            <th id="eventstatusid">{{ event.eventstatusid }}</th>
+                            <th id="eventstatusid" style="display:none;">{{ event.eventstatusid }}</th>
                         </tr>
                     {% endfor %}
                     </table>
