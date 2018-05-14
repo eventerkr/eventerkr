@@ -19,7 +19,7 @@
         <div class="container body-content">
             <div class="row body-row">
                 <div class="container">
-                    <img src="http://www.eventer.kr/_/rsrc/1472190118332/home/logo3.png" style='max-height: 100%; max-width: 100%; object-fit: contain;'>
+                    <img src="https://sites.google.com/site/eventerkr/_/rsrc/1472190118332/home/logo3.png" style='max-height: 100%; max-width: 100%; object-fit: contain;'>
                 </div>
             </div>
             <div class="row body-row">
@@ -63,17 +63,22 @@
                     <table id="event_table" class="table table-hover">
                     {% for event in events %}
                         {% if event.eventstatusid == "1" %}
-                        <tr class="success">
+                        <tr id={{ event.id }} class="success">
                         {% elif event.eventstatusid == "2" %}
-                        <tr class="warning">
+                        <tr id={{ event.id }} class="warning">
                         {% elif event.eventstatusid == "3" %}
-                        <tr class="danger">
+                        <tr id={{ event.id }} class="danger">
                         {% else %}
-                        <tr>
+                        <tr id={{ event.id }}>
                         {% endif %}
                             <th class="event-date-cell">{{ event.date|date:'Y-m-d' }}</th>
                             <th>{{ event.name }}</th>
                             <th id="eventstatusid" style="display:none;">{{ event.eventstatusid }}</th>
+                        </tr>
+                        <tr id=detail-{{ event.id }} style="display:none;">
+                            <th colspan="3">
+                                <div class="container-fluid"> hi </div>
+                            </th>
                         </tr>
                     {% endfor %}
                     </table>

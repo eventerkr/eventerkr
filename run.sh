@@ -1,6 +1,6 @@
 #!/bin/bash
 
-port=8000
+port=80
 if [ $# -gt 0 ]; then
     port=$1
 fi
