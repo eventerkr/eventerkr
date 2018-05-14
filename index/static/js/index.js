@@ -1,3 +1,5 @@
+var filter_list = [];
+
 $(document).ready(function() {
     // JQuery code to be added in here.
     });
@@ -21,35 +23,17 @@ function hideAllDetails() {
     }
 }
 
-$(function(){
-	$("#event1_button").click(function(){
+$(document).ready(function() {
+    $("#filter-button button").click(function(e) {
         hideAllDetails();
-		var table = document.getElementById("event_table");
-		var lst = document.getElementsByTagName("tr");
-        //console.log(lst);
-		for (var i=0; i<lst.length; i++) {
-            var cols = lst[i].getElementsByTagName('th');
-            for (var j=0; j<cols.length; j++) {
-                col = cols[j];
-                if (col.id == "eventstatusid") {
-                    //console.log(col.id);
-                    //console.log(col.innerText);
-                    if (col.innerText == '1') {
-                        lst[i].style.display = '';
-                    } else {
-                        lst[i].style.display = 'none';
-                    }
-                }
-            }
-        }
-		lst.border=1;
-    	return false;
-	});
-});
+        target_id = e.currentTarget.id;
+        if (filter_list.includes(target_id)) {
+            const index = filter_list.indexOf(target_id);
+            filter_list.splice(index, 1);
 
-$(function(){
-	$("#event2_button").click(function(){
-        hideAllDetails();
+        } else {
+            filter_list.push(target_id);
+        }
 		var table = document.getElementById("event_table");
 		var lst = document.getElementsByTagName("tr");
         //console.log(lst);
@@ -60,7 +44,9 @@ $(function(){
                 if (col.id == "eventstatusid") {
                     //console.log(col.id);
                     //console.log(col.innerText);
-                    if (col.innerText == '2') {
+                    if (filter_list.length == 0) {
+                        lst[i].style.display = '';
+                    } else if (filter_list.includes(col.innerText)) {
                         lst[i].style.display = '';
                     } else {
                         lst[i].style.display = 'none';
@@ -69,34 +55,7 @@ $(function(){
             }
         }
 		lst.border=1;
-    	return false;
-	});
-});
-
-$(function(){
-	$("#event3_button").click(function(){
-        hideAllDetails();
-		var table = document.getElementById("event_table");
-		var lst = document.getElementsByTagName("tr");
-        //console.log(lst);
-		for (var i=0; i<lst.length; i++) {
-            var cols = lst[i].getElementsByTagName('th');
-            for (var j=0; j<cols.length; j++) {
-                col = cols[j];
-                if (col.id == "eventstatusid") {
-                    //console.log(col.id);
-                    //console.log(col.innerText);
-                    if (col.innerText == '3') {
-                        lst[i].style.display = '';
-                    } else {
-                        lst[i].style.display = 'none';
-                    }
-                }
-            }
-        }
-		lst.border=1;
-        return false;
-	});
+    });
 });
 
 $(document).ready(function() {
