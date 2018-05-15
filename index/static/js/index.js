@@ -23,6 +23,31 @@ function hideAllDetails() {
     }
 }
 
+function disableFilterButtons() {
+    console.log(filter_list);
+    var buttons = document.getElementById("filter-button").getElementsByTagName('button');
+    if (filter_list.length == 0) {
+        for (var i=0; i<buttons.length; i++) {
+            buttons[i].className = buttons[i].className.replace(" button_disabled", "");
+        }
+        return;
+    }
+
+    for (var i=0; i<buttons.length; i++) {
+        if (!buttons[i].className.includes(" button_disabled")) {
+            buttons[i].className += " button_disabled";
+        }
+    }
+
+    for (var i=0; i<filter_list.length; i++) {
+        filter_id = filter_list[i] - 1;
+        //console.log(buttons[i].className);
+        if (buttons[filter_id].className.includes(" button_disabled")) {
+            buttons[filter_id].className = buttons[filter_id].className.replace(" button_disabled", "");
+        }
+    }
+}
+
 $(document).ready(function() {
     $("#filter-button button").click(function(e) {
         hideAllDetails();
@@ -34,11 +59,11 @@ $(document).ready(function() {
         } else {
             filter_list.push(target_id);
         }
-		var table = document.getElementById("event_table");
-		var lst = document.getElementsByTagName("tr");
+        var table = document.getElementById("event_table");
+        var lst = document.getElementsByTagName("tr");
         //console.log(lst);
-		for (var i=0; i<lst.length; i++) {
-            var cols = lst[i].getElementsByTagName('th');
+        for (var i=0; i<lst.length; i++) {
+            var cols = lst[i].getElementsByTagName('td');
             for (var j=0; j<cols.length; j++) {
                 col = cols[j];
                 if (col.id == "eventstatusid") {
@@ -54,7 +79,8 @@ $(document).ready(function() {
                 }
             }
         }
-		lst.border=1;
+        lst.border=1;
+        disableFilterButtons();
     });
 });
 
