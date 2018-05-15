@@ -17,11 +17,21 @@ class Artist(models.Model):
         db_table = 'Artist'
 
 
+class Location(models.Model):
+    id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    name = models.CharField(db_column='Name', max_length=256)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Location'
+
+
 class Event(models.Model):
     id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=256)  # Field name made lowercase.
     date = models.DateTimeField(db_column='Date', blank=True, null=True)  # Field name made lowercase.
-    locationid = models.CharField(db_column='LocationId', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    #locationid = models.CharField(db_column='LocationId', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    locationid = models.ForeignKey(Location, db_column='LocationId', on_delete=models.CASCADE, max_length=45, blank=True, null=True)  # Field name made lowercase.
     parentid = models.CharField(db_column='ParentId', max_length=45, blank=True, null=True)  # Field name made lowercase.
     eventstatusid = models.CharField(db_column='EventStatusId', max_length=45)  # Field name made lowercase.
 
@@ -49,15 +59,6 @@ class Eventstatus(models.Model):
         db_table = 'EventStatus'
 
 
-class Location(models.Model):
-    id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(db_column='Name', max_length=256)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Location'
-
-
 class User(models.Model):
     id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=45)  # Field name made lowercase.
@@ -71,8 +72,10 @@ class User(models.Model):
 
 
 class Usereventrel(models.Model):
-    userid = models.CharField(db_column='UserId', primary_key=True, max_length=45)  # Field name made lowercase.
-    eventid = models.CharField(db_column='EventId', max_length=45)  # Field name made lowercase.
+    #userid = models.CharField(db_column='UserId', primary_key=True, max_length=45)  # Field name made lowercase.
+    userid = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserId', max_length=45)  # Field name made lowercase.
+    #eventid = models.CharField(db_column='EventId', max_length=45)  # Field name made lowercase.
+    eventid = models.ForeignKey(Event, on_delete=models.CASCADE, db_column='EventId', max_length=45)  # Field name made lowercase.
 
     class Meta:
         managed = False

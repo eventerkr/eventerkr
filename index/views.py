@@ -6,6 +6,6 @@ from index.models import User, Event, Location
 def index(request):
     #return HttpResponse("Hello, world.")
     argudict = {'users': User.objects.all(),
-                'events': Event.objects.all().order_by('date').reverse(),
+                'events': Event.objects.all().order_by('date').reverse().select_related(),
                 'locations': Location.objects.all() }
     return render(request, 'index/test.html', argudict)
