@@ -54,7 +54,12 @@
                 <div class="container">
                     <h4> <b> Footprints </b> </h4>
                 </div>
-                <div id="filter-button" class="container body-row">
+                <div id="filter-user-button" class="container filter-row">
+                    {% for user in users %}
+                        <button id="filter-user-"{{ user.id }} type="button" class="btn btn-primary btn-xs">{{ user.name }}</button>
+                    {% endfor %}
+                </div>
+                <div id="filter-status-button" class="container filter-row">
                     <button id="1" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
                     <button id="2" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
                     <button id="3" type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
@@ -78,11 +83,12 @@
                         <tr id=detail-{{ event.id }} style="display:none;">
                             <td colspan="3">
                                 <div class="container-fluid" id=location-{{ event.locationid.id }}>
-                                  {{ event.locationid.name }}
-                                  </br>
-                                  {% for artist in event.artists.all %}
-                                    {{ artist.name }}
-                                  {% endfor %}
+                                    {{ event.locationid.name }}
+                                </div>
+                                <div class="container-fluid">
+                                    {% for artist in event.artists.all %}
+                                        {{ artist.name }}
+                                    {% endfor %}
                                 </div>
                             </td>
                         </tr>

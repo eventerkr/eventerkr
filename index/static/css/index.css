@@ -13,6 +13,10 @@ body {
     max-width: 1024px;
 }
 
+.filter-row {
+    padding-bottom: 5px;
+}
+
 .body-row {
     padding-top: 20px;
     padding-bottom: 20px;
