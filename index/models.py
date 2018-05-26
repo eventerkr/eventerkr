@@ -34,6 +34,7 @@ class Event(models.Model):
     locationid = models.ForeignKey(Location, db_column='LocationId', on_delete=models.CASCADE, max_length=45, blank=True, null=True)  # Field name made lowercase.
     parentid = models.CharField(db_column='ParentId', max_length=45, blank=True, null=True)  # Field name made lowercase.
     eventstatusid = models.CharField(db_column='EventStatusId', max_length=45)  # Field name made lowercase.
+    artists = models.ManyToManyField(Artist, through='Eventartistrel')
 
     class Meta:
         managed = False
@@ -41,8 +42,11 @@ class Event(models.Model):
 
 
 class Eventartistrel(models.Model):
-    eventid = models.CharField(db_column='EventId', primary_key=True, max_length=45)  # Field name made lowercase.
-    artistid = models.CharField(db_column='ArtistId', max_length=45)  # Field name made lowercase.
+    id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    #eventid = models.CharField(db_column='EventId', primary_key=True, max_length=45)  # Field name made lowercase.
+    eventid = models.ForeignKey(Event, db_column='EventId', on_delete=models.CASCADE, max_length=45)  # Field name made lowercase.
+    #artistid = models.CharField(db_column='ArtistId', max_length=45)  # Field name made lowercase.
+    artistid = models.ForeignKey(Artist, db_column='ArtistId', on_delete=models.CASCADE, max_length=45)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -72,6 +76,7 @@ class User(models.Model):
 
 
 class Usereventrel(models.Model):
+    id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
     #userid = models.CharField(db_column='UserId', primary_key=True, max_length=45)  # Field name made lowercase.
     userid = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserId', max_length=45)  # Field name made lowercase.
     #eventid = models.CharField(db_column='EventId', max_length=45)  # Field name made lowercase.
