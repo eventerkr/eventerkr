@@ -16,86 +16,100 @@
         </style>
     </head>
     <body>
-        <div class="container body-content">
+        <div class="container body-content" id="wrap">
             <div class="row body-row">
                 <div class="container">
                     <img src="https://sites.google.com/site/eventerkr/_/rsrc/1472190118332/home/logo3.png" style='max-height: 100%; max-width: 100%; object-fit: contain;'>
                 </div>
             </div>
             <div class="row body-row">
-                <div class="container">
-                    <h4> <b> About </b> </h4>
-                    Event is flying never to return </br> </br>
-                    통장잔고가 남아있다면 이벤트에 갖다바치는 이벤터들의 소소한 모임입니다.
-                </div>
-            </div>
-            <div class="row body-row">
-                <div class="container">
-                    <h4> <b> Members </b> </h4>
-                    {% for user in users %}
-                        {% if forloop.counter0 != 0 %}
-                        </br>
-                        {% endif %}
-                        <b> {{ user.name }} </b>
-                        (
-                        {% if user.twitter != None %}
-                          <a href="https://twitter.com/{{ user.twitter }}">twitter</a>
-                        {% endif %}
-                        {% if user.eventernote != None %}
-                          <a href="http://www.eventernote.com/users/{{ user.eventernote }}">eventernote</a>
-                        {% endif %}
-                        ) </br>
-                        - {{ user.intro }}
-                        </br>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="row body-row">
-                <div class="container">
-                    <h4> <b> Footprints </b> </h4>
-                </div>
-                <div id="filter-user-button" class="container filter-row">
-                    {% for user in users %}
-                        <button id="filter-user-"{{ user.id }} type="button" class="btn btn-primary btn-xs">{{ user.name }}</button>
-                    {% endfor %}
-                </div>
-                <div id="filter-status-button" class="container filter-row">
-                    <button id="1" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
-                    <button id="2" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
-                    <button id="3" type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
-                </div>
-                <div class="container max-width-1024">
-                    <table id="event_table" class="table table-hover">
-                    {% for event in events %}
-                        {% if event.eventstatusid == "1" %}
-                        <tr id={{ event.id }} class="success">
-                        {% elif event.eventstatusid == "2" %}
-                        <tr id={{ event.id }} class="info">
-                        {% elif event.eventstatusid == "3" %}
-                        <tr id={{ event.id }} class="danger">
-                        {% else %}
-                        <tr id={{ event.id }}>
-                        {% endif %}
-                            <td class="event-date-cell">{{ event.date|date:'Y-m-d' }}</td>
-                            <td>{{ event.name }}</td>
-                            <td id="eventstatusid" style="display:none;">{{ event.eventstatusid }}</td>
-                        </tr>
-                        <tr id=detail-{{ event.id }} style="display:none;">
-                            <td colspan="3">
-                                <div class="container-fluid" id=location-{{ event.locationid.id }}>
-                                    {{ event.locationid.name }}
-                                </div>
-                                <div class="container-fluid">
-                                    {% for artist in event.artists.all %}
-                                        {{ artist.name }}
-                                    {% endfor %}
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </table>
+				<div class="container-fluid">
+					<ul id="main_tab" class="nav nav-tabs">
+						<li class="active pull-right"><a data-toggle="tab" href="#Footprints">Footprints</a></li>
+						<li class="pull-right"><a data-toggle="tab" href="#Members">Members</a></li>
+						<li class="pull-right"><a data-toggle="tab" href="#About">About</a></li>
+					</ul>
+				</div>
+                <div class="tab-content">
+					</br>
+                    <div id="About" class="tab-pane fade">
+                        <div class="container">
+                            <img src="{% static "images/about_main.jpg" %}" style='max-height: 100%; max-width: 100%; object-fit: contain;'>
+                            </br> </br>
+                            Event is flying never to return </br> </br>
+                            통장잔고가 남아있다면 이벤트에 갖다바치는 이벤터들의 소소한 모임입니다.
+                        </div>
+                    </div>
+                    <div id="Members" class="tab-pane fade">
+                        <div class="container">
+                            {% for user in users %}
+                                {% if forloop.counter0 != 0 %}
+                                </br>
+                                {% endif %}
+                                <b> {{ user.name }} </b>
+                                (
+                                {% if user.twitter != None %}
+                                  <a href="https://twitter.com/{{ user.twitter }}">twitter</a>
+                                {% endif %}
+                                {% if user.eventernote != None %}
+                                  <a href="http://www.eventernote.com/users/{{ user.eventernote }}">eventernote</a>
+                                {% endif %}
+                                ) </br>
+                                - {{ user.intro }}
+                                </br>
+                            {% endfor %}
+                        </div>
+                    </div>
+					<div id="Footprints" class="tab-pane fade in active">
+						<div id="filter-user-button" class="container filter-row">
+							{% for user in users %}
+								<button id="filter-user-"{{ user.id }} type="button" class="btn btn-primary btn-xs">{{ user.name }}</button>
+							{% endfor %}
+						</div>
+						<div id="filter-status-button" class="container filter-row">
+							<button id="1" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
+							<button id="2" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
+							<button id="3" type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
+						</div>
+						<div class="container-fluid">
+							<table id="event_table" class="table table-hover">
+							{% for event in events %}
+								{% if event.eventstatusid == "1" %}
+								<tr id={{ event.id }} class="success">
+								{% elif event.eventstatusid == "2" %}
+								<tr id={{ event.id }} class="info">
+								{% elif event.eventstatusid == "3" %}
+								<tr id={{ event.id }} class="danger">
+								{% else %}
+								<tr id={{ event.id }}>
+								{% endif %}
+									<td class="event-date-cell">{{ event.date|date:'Y-m-d' }}</td>
+									<td>{{ event.name }}</td>
+									<td id="eventstatusid" style="display:none;">{{ event.eventstatusid }}</td>
+								</tr>
+								<tr id=detail-{{ event.id }} style="display:none;">
+									<td colspan="3">
+										<div class="container-fluid" id=location-{{ event.locationid.id }}>
+											{{ event.locationid.name }}
+										</div>
+										<div class="container-fluid">
+											{% for artist in event.artists.all %}
+												{{ artist.name }}
+											{% endfor %}
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+							</table>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
+		<div id="footer">
+			<div class="container body-content text-center">
+				<span class="text-muted"> 월급전부꼴아박아욧 since 2016 </span>
+			</div>
+		</div>
     </body>
 </html>
