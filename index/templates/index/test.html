@@ -61,12 +61,12 @@
                         </div>
                     </div>
 					<div id="Footprints" class="tab-pane fade in active">
-						<div id="filter-user-button" class="container filter-row">
+						<div id="filter-user-button" class="container-fluid filter-row">
 							{% for user in users %}
 								<button id="filter-user-"{{ user.id }} type="button" class="btn btn-primary btn-xs">{{ user.name }}</button>
 							{% endfor %}
 						</div>
-						<div id="filter-status-button" class="container filter-row">
+						<div id="filter-status-button" class="container-fluid filter-row">
 							<button id="1" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
 							<button id="2" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
 							<button id="3" type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
