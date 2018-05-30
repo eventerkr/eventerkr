@@ -1,6 +1,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: rgb(244, 244, 246);
 }
 
 .header-logo {
@@ -36,9 +37,9 @@ body {
 }
 
 .button_disabled {
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
 }
 
 .right-tabs .nav {
@@ -54,20 +55,33 @@ body {
 
 /* Wrapper for page content to push down footer */
 #wrap {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  /* Negative indent footer by its height */
-  margin: 0 auto -60px;
-  /* Pad bottom by footer height */
-  padding: 0 0 60px;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
 }
 
 /* Set the fixed height of the footer here */
 #footer {
-  height: 60px;
-  background-color: #f5f5f5;
-  margin-top:50px;
-  padding-top:20px;
-  padding-bottom:20px;
+    height: 60px;
+    /* background-color: #f5f5f5; */
+    background-color: #f0f0f0;
+    margin-top:50px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.menubar {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.nav-tabs > li > a {
+    color: grey;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    border: none;
+    background: none;
+    border-bottom: 2px #483D8B solid;
 }
