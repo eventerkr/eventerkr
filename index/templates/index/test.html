@@ -44,20 +44,39 @@
                     <div id="Members" class="tab-pane fade">
                         <div class="container-fluid">
                             {% for user in users %}
-                                {% if forloop.counter0 != 0 %}
-                                </br>
-                                {% endif %}
-                                <b> {{ user.name }} </b>
-                                (
-                                {% if user.twitter != None %}
-                                  <a href="https://twitter.com/{{ user.twitter }}">twitter</a>
-                                {% endif %}
-                                {% if user.eventernote != None %}
-                                  <a href="http://www.eventernote.com/users/{{ user.eventernote }}">eventernote</a>
-                                {% endif %}
-                                ) </br>
-                                - {{ user.intro }}
-                                </br>
+                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                    <div class="profile-card profile-hovercard">
+										<div class="header">
+										</div>
+										<div class="avatar">
+											{% if user.twitter != None %}
+												<img alt="" src="https://avatars.io/twitter/{{ user.twitter }}" onerror="this.src='{% static 'images/profile_default.png' %}'">
+											{% else %}
+												<img alt="" src="{% static "images/profile_default.png" %}">
+											{% endif %}
+										</div>
+										<div class="info">
+											{% if forloop.counter0 != 0 %}
+											{% endif %}
+											<div class="title">
+												<b> {{ user.name }} </b>
+											</div>
+											<div class="desc">
+												(
+												{% if user.twitter != None %}
+												  <a href="https://twitter.com/{{ user.twitter }}">twitter</a>
+												{% endif %}
+												{% if user.eventernote != None %}
+												  <a href="http://www.eventernote.com/users/{{ user.eventernote }}">eventernote</a>
+												{% endif %}
+												)
+											</div>
+											<div class="desc">
+												{{ user.intro }}
+											</div>
+										</div>
+									</div>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
