@@ -1,8 +1,23 @@
 var filter_status_list = [];
 
 $(document).ready(function() {
-    // JQuery code to be added in here.
-    });
+    console.log(events_list);
+    $('#event-calendar').fullCalendar({
+        header: {
+            left: 'title',
+            center: 'month,listYear'
+        },
+        views: {
+            month: {
+                titleFormat: 'MMMM YYYY'
+            }
+        },
+        events: events_list,
+        theme: true,
+        themeSystem: 'bootstrap3',
+        displayEventTime: false
+    })
+});
 
 function getElementsByIdStartsWith(container, selectorTag, prefix) {
     var items = [];
