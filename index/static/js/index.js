@@ -12,6 +12,7 @@ $(document).ready(function() {
                 titleFormat: 'MMMM YYYY'
             }
         },
+        height: 'auto',
         events: events_list,
         theme: true,
         themeSystem: 'bootstrap3',
