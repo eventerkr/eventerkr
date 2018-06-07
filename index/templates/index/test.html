@@ -27,7 +27,9 @@
             {% if not forloop.first %},{% endif %}
                 {
                     title: "{{ event.name }}",
-                    start: "{{ event.date | date:"c"}}"
+                    start: "{{ event.date | date:"c"}}",
+                    place: "{{ event.locationid.name }}",
+                    start_str: "{{ event.date|date:'Y-m-d H시 i분' }}"
                 }
             {% endfor %}
             ]
@@ -39,15 +41,15 @@
                 </div>
             </div>
             <div class="row body-row">
-				<div class="container-fluid menubar">
-					<ul id="main_tab" class="nav nav-tabs">
-						<li class="active pull-right"><a data-toggle="tab" href="#Footprints">Footprints</a></li>
-						<li class="pull-right"><a data-toggle="tab" href="#Members">Members</a></li>
-						<li class="pull-right"><a data-toggle="tab" href="#About">About</a></li>
-					</ul>
-				</div>
+                <div class="container-fluid menubar">
+                    <ul id="main_tab" class="nav nav-tabs">
+                        <li class="active pull-right"><a data-toggle="tab" href="#Footprints">Footprints</a></li>
+                        <li class="pull-right"><a data-toggle="tab" href="#Members">Members</a></li>
+                        <li class="pull-right"><a data-toggle="tab" href="#About">About</a></li>
+                    </ul>
+                </div>
                 <div class="tab-content">
-					</br>
+                    </br>
                     <div id="About" class="tab-pane fade">
                         <div class="container-fluid">
                             <img src="{% static "images/about_main.jpg" %}" style='max-height: 100%; max-width: 100%; object-fit: contain;'>
@@ -61,93 +63,93 @@
                             {% for user in users %}
                                 <div class="col-xs-12 col-sm-6 col-md-4">
                                     <div class="profile-card profile-hovercard">
-										<div class="header">
-										</div>
-										<div class="avatar">
-											{% if user.twitter != None %}
-												<img alt="" src="https://avatars.io/twitter/{{ user.twitter }}" onerror="this.src='{% static 'images/profile_default.png' %}'">
-											{% else %}
-												<img alt="" src="{% static "images/profile_default.png" %}">
-											{% endif %}
-										</div>
-										<div class="info">
-											{% if forloop.counter0 != 0 %}
-											{% endif %}
-											<div class="title">
-												<b> {{ user.name }} </b>
-											</div>
-											<div class="desc">
-												(
-												{% if user.twitter != None %}
-												  <a href="https://twitter.com/{{ user.twitter }}">twitter</a>
-												{% endif %}
-												{% if user.eventernote != None %}
-												  <a href="http://www.eventernote.com/users/{{ user.eventernote }}">eventernote</a>
-												{% endif %}
-												)
-											</div>
-											<div class="desc">
-												{{ user.intro }}
-											</div>
-										</div>
-									</div>
+                                        <div class="header">
+                                        </div>
+                                        <div class="avatar">
+                                            {% if user.twitter != None %}
+                                                <img alt="" src="https://avatars.io/twitter/{{ user.twitter }}" onerror="this.src='{% static 'images/profile_default.png' %}'">
+                                            {% else %}
+                                                <img alt="" src="{% static "images/profile_default.png" %}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="info">
+                                            {% if forloop.counter0 != 0 %}
+                                            {% endif %}
+                                            <div class="title">
+                                                <b> {{ user.name }} </b>
+                                            </div>
+                                            <div class="desc">
+                                                (
+                                                {% if user.twitter != None %}
+                                                  <a href="https://twitter.com/{{ user.twitter }}">twitter</a>
+                                                {% endif %}
+                                                {% if user.eventernote != None %}
+                                                  <a href="http://www.eventernote.com/users/{{ user.eventernote }}">eventernote</a>
+                                                {% endif %}
+                                                )
+                                            </div>
+                                            <div class="desc">
+                                                {{ user.intro }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
                     </div>
-					<div id="Footprints" class="tab-pane fade in active">
+                    <div id="Footprints" class="tab-pane fade in active">
                         <div class="container-fluid">
                             <div id="event-calendar"></div>
                         </div>
-						<div id="filter-user-button" class="container-fluid filter-row">
-							{% for user in users %}
-								<button id="filter-user-"{{ user.id }} type="button" class="btn btn-primary btn-xs">{{ user.name }}</button>
-							{% endfor %}
-						</div>
-						<div id="filter-status-button" class="container-fluid filter-row">
-							<button id="1" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
-							<button id="2" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
-							<button id="3" type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
-						</div>
-						<div class="container-fluid">
-							<table id="event_table" class="table table-hover">
-							{% for event in events %}
-								{% if event.eventstatusid == "1" %}
-								<tr id={{ event.id }} class="success">
-								{% elif event.eventstatusid == "2" %}
-								<tr id={{ event.id }} class="info">
-								{% elif event.eventstatusid == "3" %}
-								<tr id={{ event.id }} class="danger">
-								{% else %}
-								<tr id={{ event.id }}>
-								{% endif %}
-									<td class="event-date-cell">{{ event.date|date:'Y-m-d' }}</td>
-									<td>{{ event.name }}</td>
-									<td id="eventstatusid" style="display:none;">{{ event.eventstatusid }}</td>
-								</tr>
-								<tr id=detail-{{ event.id }} style="display:none;">
-									<td colspan="3">
-										<div class="container-fluid" id=location-{{ event.locationid.id }}>
-											{{ event.locationid.name }}
-										</div>
-										<div class="container-fluid">
-											{% for artist in event.artists.all %}
-												{{ artist.name }}
-											{% endfor %}
-										</div>
-									</td>
-								</tr>
-							{% endfor %}
-							</table>
-						</div>
-					</div>
+                        <div id="filter-user-button" class="container-fluid filter-row">
+                            {% for user in users %}
+                                <button id="filter-user-"{{ user.id }} type="button" class="btn btn-primary btn-xs">{{ user.name }}</button>
+                            {% endfor %}
+                        </div>
+                        <div id="filter-status-button" class="container-fluid filter-row">
+                            <button id="1" type="button" class="btn btn-success btn-xs">다녀온 이벤트</button>
+                            <button id="2" type="button" class="btn btn-info btn-xs">예정 (티케팅 완료)</button>
+                            <button id="3" type="button" class="btn btn-warning btn-xs">예정 (티케팅 중)</button>
+                        </div>
+                        <div class="container-fluid">
+                            <table id="event_table" class="table table-hover">
+                            {% for event in events %}
+                                {% if event.eventstatusid == "1" %}
+                                <tr id={{ event.id }} class="success">
+                                {% elif event.eventstatusid == "2" %}
+                                <tr id={{ event.id }} class="info">
+                                {% elif event.eventstatusid == "3" %}
+                                <tr id={{ event.id }} class="danger">
+                                {% else %}
+                                <tr id={{ event.id }}>
+                                {% endif %}
+                                    <td class="event-date-cell">{{ event.date|date:'Y-m-d' }}</td>
+                                    <td>{{ event.name }}</td>
+                                    <td id="eventstatusid" style="display:none;">{{ event.eventstatusid }}</td>
+                                </tr>
+                                <tr id=detail-{{ event.id }} style="display:none;">
+                                    <td colspan="3">
+                                        <div class="container-fluid" id=location-{{ event.locationid.id }}>
+                                            {{ event.locationid.name }}
+                                        </div>
+                                        <div class="container-fluid">
+                                            {% for artist in event.artists.all %}
+                                                {{ artist.name }}
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="container body-content" id="footer">
-			<div class="container body-content text-center">
-				<span class="text-muted"> 월급전부꼴아박아욧! since 2016 </span>
-			</div>
-		</div>
+            <div class="container body-content text-center">
+                <span class="text-muted"> 월급전부꼴아박아욧! since 2016 </span>
+            </div>
+        </div>
     </body>
 </html>

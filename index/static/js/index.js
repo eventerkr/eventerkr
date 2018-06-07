@@ -2,7 +2,7 @@ var filter_status_list = [];
 
 $(document).ready(function() {
     console.log(events_list);
-    $('#event-calendar').fullCalendar({
+    var event_calendar = $('#event-calendar').fullCalendar({
         header: {
             left: 'title',
             center: 'month,listYear'
@@ -13,11 +13,32 @@ $(document).ready(function() {
             }
         },
         height: 'auto',
+        contentHeight: 'auto',
         events: events_list,
         theme: true,
         themeSystem: 'bootstrap3',
-        displayEventTime: false
-    })
+        displayEventTime: false,
+        selectHelper: true,
+        eventRender: function(event, element){
+            element.popover({
+                animation:true,
+                delay: 100,
+                placement: 'bottom',
+                //content: 'Date:'+event.start,
+                title: event.title,
+                content: event.start_str+'</br>'+event.place,
+                trigger: 'click',
+                container: "#wrap",
+                html: true
+            });
+        }
+    });
+    //$('html').click(function () {
+    //    $('.popover').each(function () {
+    //        console.log('close');
+    //        $(this).popover('hide');
+    //    });
+    //});
 });
 
 function getElementsByIdStartsWith(container, selectorTag, prefix) {
