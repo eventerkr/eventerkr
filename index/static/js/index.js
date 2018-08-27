@@ -1,7 +1,7 @@
 var filter_status_list = [];
 
 $(document).ready(function() {
-    console.log(events_list);
+    //console.log(events_list);
     var event_calendar = $('#event-calendar').fullCalendar({
         header: {
             left: 'title',
@@ -33,12 +33,12 @@ $(document).ready(function() {
             });
         }
     });
-    //$('html').click(function () {
-    //    $('.popover').each(function () {
-    //        console.log('close');
-    //        $(this).popover('hide');
-    //    });
-    //});
+    $('html').click(function () {
+        $('.popover').each(function () {
+            console.log('close');
+            $(this).popover('hide');
+        });
+    });
 });
 
 function getElementsByIdStartsWith(container, selectorTag, prefix) {
