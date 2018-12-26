@@ -103,7 +103,7 @@
                         </div>
                         <div id="filter-user-button" class="container-fluid filter-row">
                             {% for user in users %}
-                                <button id="filter-user-"{{ user.id }} type="button" class="btn btn-primary btn-xs">{{ user.name }}</button>
+                                <button id="{{ user.id }}" type="button" class="btn btn-default btn-xs">{{ user.name }}</button>
                             {% endfor %}
                         </div>
                         <div id="filter-status-button" class="container-fluid filter-row">
@@ -124,8 +124,14 @@
                                 <tr id={{ event.id }}>
                                 {% endif %}
                                     <td class="event-date-cell">{{ event.date|date:'Y-m-d' }}</td>
-                                    <td>{{ event.name }}</td>
+                                    <td>
+                                        {{ event.name }}&ensp;
+                                        {% for attendee in event.users.all %}
+                                            <button type="button" class="btn btn-default btn-xs">{{ attendee.name }}</button>
+                                        {% endfor %}
+                                    </td>
                                     <td id="eventstatusid" style="display:none;">{{ event.eventstatusid }}</td>
+                                    <td id="eventuserid" style="display:none;">{% for attendee in event.users.all %} {{ attendee.id }} {% endfor %}</td>
                                 </tr>
                                 <tr id=detail-{{ event.id }} style="display:none;">
                                     <td colspan="3">

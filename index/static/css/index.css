@@ -2,6 +2,10 @@ body {
     background-color: #DCDCDC;
 }
 
+#event-calendar {
+    margin-bottom: 4px;
+}
+
 /* Wrapper for page content to push down footer */
 #wrap {
     padding-top: 50px;

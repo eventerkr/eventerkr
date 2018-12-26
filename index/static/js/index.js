@@ -1,4 +1,5 @@
 var filter_status_list = [];
+var user_status_list = [];
 
 $(document).ready(function() {
     //console.log(events_list);
@@ -60,6 +61,31 @@ function hideAllDetails() {
     }
 }
 
+function disableUserStatusButtons() {
+    //console.log(user_status_list);
+    var buttons = document.getElementById("filter-user-button").getElementsByTagName('button');
+    if (user_status_list.length == 0) {
+        for (var i=0; i<buttons.length; i++) {
+            buttons[i].className = buttons[i].className.replace(" button_disabled", "");
+        }
+        return;
+    }
+
+    for (var i=0; i<buttons.length; i++) {
+        if (!buttons[i].className.includes(" button_disabled")) {
+            buttons[i].className += " button_disabled";
+        }
+    }
+
+    for (var i=0; i<user_status_list.length; i++) {
+        user_id = user_status_list[i] - 1;
+        //console.log(buttons[i].className);
+        if (buttons[user_id].className.includes(" button_disabled")) {
+            buttons[user_id].className = buttons[user_id].className.replace(" button_disabled", "");
+        }
+    }
+}
+
 function disableFilterStatusButtons() {
     //console.log(filter_status_list);
     var buttons = document.getElementById("filter-status-button").getElementsByTagName('button');
@@ -86,6 +112,51 @@ function disableFilterStatusButtons() {
 }
 
 $(document).ready(function() {
+    $("#filter-user-button button").click(function(e) {
+        hideAllDetails();
+        target_id = e.currentTarget.id;
+        if (user_status_list.includes(target_id)) {
+            const index = user_status_list.indexOf(target_id);
+            user_status_list.splice(index, 1);
+
+        } else {
+            user_status_list.push(target_id);
+        }
+        var table = document.getElementById("event_table");
+        var lst = document.getElementsByTagName("tr");
+        //console.log(lst);
+        for (var i=0; i<lst.length; i++) {
+            var cols = lst[i].getElementsByTagName('td');
+            for (var j=0; j<cols.length; j++) {
+                col = cols[j];
+                if (col.id == "eventuserid") {
+                    //console.log(col.id);
+                    //console.log(col.innerText);
+                    var found = false;
+                    if (user_status_list.length == 0) {
+                        found = true;
+                    } else {
+                        for (var k=0; k<user_status_list.length; k++) {
+                            if (col.innerText.includes(user_status_list[k])) {
+                                found = true;
+                            }
+                            //console.log(col.innerText)
+                            //console.log(user_status_list[k])
+                        }
+                    }
+                    if (found) {
+                        lst[i].style.display = '';
+                    } else {
+                        lst[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+        lst.border=1;
+        disableUserStatusButtons();
+    });
+
+/*
     $("#filter-status-button button").click(function(e) {
         hideAllDetails();
         target_id = e.currentTarget.id;
@@ -118,7 +189,7 @@ $(document).ready(function() {
         }
         lst.border=1;
         disableFilterStatusButtons();
-    });
+    }); */
 });
 
 $(document).ready(function() {
