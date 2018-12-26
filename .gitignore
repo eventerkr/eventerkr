@@ -106,3 +106,4 @@ ENV/
 *.swo
 
 crawler/
+db.sqlite3
