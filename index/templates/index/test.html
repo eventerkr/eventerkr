@@ -126,7 +126,7 @@
                                     <td class="event-date-cell">{{ event.date|date:'Y-m-d' }}</td>
                                     <td>
                                         {{ event.name }}&ensp;
-                                        {% for attendee in event.users.all %}
+                                        {% for attendee in event.users.all|dictsort:"id" %}
                                             <button type="button" class="btn btn-default btn-xs">{{ attendee.name }}</button>
                                         {% endfor %}
                                     </td>
