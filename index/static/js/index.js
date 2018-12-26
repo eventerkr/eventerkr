@@ -136,13 +136,17 @@ $(document).ready(function() {
                     if (user_status_list.length == 0) {
                         found = true;
                     } else {
+                        var exist_all = true;
                         for (var k=0; k<user_status_list.length; k++) {
-                            if (col.innerText.includes(user_status_list[k])) {
-                                found = true;
+                            if (!col.innerText.includes(user_status_list[k])) {
+                                exist_all = false;
+                                break;
                             }
                             //console.log(col.innerText)
                             //console.log(user_status_list[k])
                         }
+                        if (exist_all)
+                            found = true;
                     }
                     if (found) {
                         lst[i].style.display = '';
